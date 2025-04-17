@@ -43,6 +43,12 @@ ffmpeg
 # install zsh
 yay -S zsh
 
+# install dependencies for bar
+yay -S acpi
+yay -S udisks2
+yay -S libnotify
+yay -S bc
+
 # install ohmyzsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
