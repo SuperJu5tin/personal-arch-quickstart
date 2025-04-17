@@ -71,9 +71,6 @@ plugins=(
 )
 source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-source $ZSH/oh-my-zsh.sh
-
 export NVM_DIR="$HOME/.nvm"
 source /usr/share/nvm/init-nvm.sh
 export ANDROID_HOME=~/Android/Sdk
