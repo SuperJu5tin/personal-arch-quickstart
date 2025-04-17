@@ -22,14 +22,6 @@ fi
 # install nerd fonts
 yay -S nerd-fonts
 
-# install ly tui greeter
-yay -S ly
-
-sudo systemctl enable ly.service
-sudo systemctl start ly.service
-
-echo "\n[sessions]\ndefault_session=dwm" | sudo tee -a /etc/ly/config.ini
-
 # background
 yay -S feh
 mkdir ~/Pictures
