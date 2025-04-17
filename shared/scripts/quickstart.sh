@@ -6,7 +6,7 @@
 mkdir ~/Pictures
 mkdir ~/Videos
 mkdir -p ~/Documents/gh/personal
-cp -r ../../../personal-arch-quickstart ~/Documents/gh/personal
+# cp -r ../../../personal-arch-quickstart ~/Documents/gh/personal
 
 # copy scripts
 cp -r ~/Documents/gh/personal/personal-arch-quickstart/shared/scripts ~/Documents
