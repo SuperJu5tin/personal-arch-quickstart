@@ -12,7 +12,7 @@ mkdir ~/Downloads
 mkdir -p ~/Documents/gh/personal
 mkdir ~/Documents/gh/school
 mkdir ~/Documents/gh/work
-cp -r $CWD ~/Documents/gh/personal
+# cp -r $CWD ~/Documents/gh/personal
 
 # copy scripts
 # cp -r ~/Documents/gh/personal/personal-arch-quickstart/shared/scripts ~/Documents
