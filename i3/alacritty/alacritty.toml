@@ -1,0 +1,25 @@
+# ~/.config/alacritty/alacritty.toml
+
+# Font configuration
+[font]
+normal.family = "monospace"
+normal.style = "Regular"
+bold.family = "monospace"
+bold.style = "Bold"
+italic.family = "monospace"
+italic.style = "Italic"
+bold_italic.family = "monospace"
+bold_italic.style = "Bold Italic"
+size = 7.25
+
+# Window settings
+[window]
+opacity = 0.9
+padding.x = 3
+padding.y = 1
+decorations = "Full"
+
+# Scrolling
+[scrolling]
+history = 10000
+multiplier = 3

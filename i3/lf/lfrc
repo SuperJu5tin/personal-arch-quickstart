@@ -1,0 +1,12 @@
+set previewer ~/.config/lf/preview.sh
+set last-dir-path ~/.cache/lf/lastdir
+
+cmd open ${{
+    if [[ "$f" =~ \.(jpg|jpeg|png|gif|bmp|tiff)$ ]]; then
+        setsid feh "$f" > /dev/null 2>&1 &
+    else
+        setsid xdg-open "$f" > /dev/null 2>&1 &
+    fi
+}}
+map o open
+

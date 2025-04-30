@@ -53,9 +53,8 @@ bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ t
 # Mic mute toggle (use a different signal if you have a separate mic block)
 bindsym XF86AudioMicMute exec --no-startup-id "pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks"
 
-
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id "brightnessctl set +5% && pkill -SIGRTMIN+20 i3blocks"
+bindsym XF86MonBrightnessDown exec --no-startup-id "brightnessctl set 5%- && pkill -SIGRTMIN+20 i3blocks"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -65,7 +64,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Shift+Return exec st
+bindsym $mod+Shift+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -208,18 +207,32 @@ bar {
 
 exec --no-startup-id dunst
 
-#disk managers
+# disk managers
 
-bindsym $mod+m exec --no-startup-id ~/scripts/dmenu-mount
-bindsym $mod+Shift+m exec --no-startup-id ~/scripts/dmenu-unmount
+bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/dmenu-mount.sh
+bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/dmenu-unmount.sh
+
+# power profile manager
+
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/dmenu-power.sh
 
 bindsym $mod+c exec google-chrome-stable
 
-bindsym Help exec --no-startup-id ~/scripts/toggle-recording.sh
+bindsym Help exec --no-startup-id ~/.config/i3/scripts/toggle-recording.sh
 
-exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/background.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/background.jpg
 
 gaps inner 10
 gaps outer 10
 
 exec --no-startup-id picom --config ~/.config/picom.conf
+exec --no-startup-id blueman-applet
+
+# Fullscreen screenshot
+bindsym Print exec scrot ~/Pictures/screenshot_%Y-%m-%d-%H%M%S.png
+
+# Select area screenshot
+bindsym $mod+Shift+s exec --no-startup-id sh -c 'FILE=~/Pictures/screenshot_$(date +%Y-%m-%d-%H%M%S).png && maim -s -u "$FILE" && xclip -selection clipboard -t image/png -i "$FILE"'
+
+bindsym $mod+x exec --no-startup-id ~/.config/i3/scripts/btop-launcher.sh
+
