@@ -19,20 +19,15 @@ cp -r $CWD ~/Documents/gh/personal
 
 # install yay
 if ! command -v yay &> /dev/null; then
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
     makepkg -si
     cd .. && rm -rf yay
 fi
 
 # install nerd fonts
 yay -S nerd-fonts
-
-# install ly tui greeter
-yay -S ly
-
-sudo systemctl enable ly.service
-sudo systemctl start ly.service
-
-echo "\n[sessions]\ndefault_session=dwm" | sudo tee -a /etc/ly/config.ini
 
 # background
 yay -S feh
@@ -58,9 +53,15 @@ yay -S btop
 # notification
 yay -S notify-send
 
+# file manager
+yay -S lf
+
+# power profiles
+yay -S power-profiles-daemon
+
 # ima install it anyways
 yay -S alacritty
-yay -S nvim
+yay -S neovim
 yay -S discord
 yay -S spotify
 yay -S chromium
