@@ -29,6 +29,19 @@ source $ZSH/oh-my-zsh.sh
 export NVM_DIR="$HOME/.nvm"
 source /usr/share/nvm/init-nvm.sh
 export ANDROID_HOME=~/Android/Sdk
-export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+export PATH=/emulator:/tools:/tools/bin:/platform-tools:/sbin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+
+lfcd() {
+    tmpfile="${XDG_CACHE_HOME:-$HOME/.cache}/lf/lastdir"
+    mkdir -p "$(dirname "$tmpfile")"
+
+    lf -last-dir-path="$tmpfile" "$@"
+
+    if [ -f "$tmpfile" ]; then
+        dir=$(cat "$tmpfile")
+        [ -d "$dir" ] && cd "$dir"
+    fi
+}
+
 
 " >> ~/.zshrc

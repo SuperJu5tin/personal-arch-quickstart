@@ -61,6 +61,8 @@ yay -S notify-send
 # ima install it anyways
 yay -S discord
 yay -S spotify
+yay -S chromium
+yay -S google-chrome
 
 # install zsh
 yay -S zsh
