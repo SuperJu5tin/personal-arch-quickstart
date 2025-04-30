@@ -41,6 +41,12 @@ yay -S picom
 # install brightnessctl
 yay -S brightnessctl
 
+# battery util
+yay -S acpi
+
+# mount util
+yay -S udisks2
+
 # install nvm
 yay -S nvm
 
@@ -58,6 +64,9 @@ yay -S lf
 
 # power profiles
 yay -S power-profiles-daemon
+# dependencies
+yay -S python-gobject gobject-introspection
+
 
 # ima install it anyways
 yay -S alacritty
