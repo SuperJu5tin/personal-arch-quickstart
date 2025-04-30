@@ -59,6 +59,8 @@ yay -S btop
 yay -S notify-send
 
 # ima install it anyways
+yay -S alacritty
+yay -S nvim
 yay -S discord
 yay -S spotify
 yay -S chromium
