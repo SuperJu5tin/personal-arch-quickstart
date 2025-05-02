@@ -1,5 +1,6 @@
 #!/bin/bash
 
+color="#00DDCC"
 # Get volume and mute status
 volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | head -n1 | tr -d '%')
 mute=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
@@ -29,4 +30,7 @@ if [ "$mute" = "yes" ]; then
 else
     echo "$volume_icon ${volume}% $bar"
 fi
+
+echo
+echo "$color"
 

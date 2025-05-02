@@ -1,5 +1,6 @@
 #!/bin/bash
 
+color="#00AAFF"
 # Get the current power profile
 current_profile=$(powerprofilesctl get)
 
@@ -18,4 +19,7 @@ case "$current_profile" in
         echo "󱎯 [AWAITING COMMAND]"
         ;;
 esac
+
+echo
+echo "$color"
 

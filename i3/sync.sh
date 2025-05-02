@@ -8,5 +8,5 @@ cp -r ~/.config/picom.conf "$REPO_DIR/i3"
 cp -r ~/.config/lf "$REPO_DIR/i3"
 cp -r ~/.config/alacritty "$REPO_DIR/i3"
 
-cp -r ~/Documents/scripts "$REPO_DIR/shared"
+# cp -r ~/Documents/scripts "$REPO_DIR/shared"
 

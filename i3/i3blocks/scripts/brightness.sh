@@ -1,5 +1,6 @@
 #!/bin/bash
 
+color="#00FFCC"
 # Get brightness percentage using brightnessctl
 brightness=$(brightnessctl get)
 max_brightness=$(brightnessctl max)
@@ -25,4 +26,6 @@ bar+="]"
 
 # Output
 echo "$brightness_icon ${percentage}% $bar"
+echo
+echo "$color"
 

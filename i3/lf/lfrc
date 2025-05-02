@@ -1,12 +1,22 @@
 set previewer ~/.config/lf/preview.sh
 set last-dir-path ~/.cache/lf/lastdir
 
+# Custom open command
 cmd open ${{
     if [[ "$f" =~ \.(jpg|jpeg|png|gif|bmp|tiff)$ ]]; then
         setsid feh "$f" > /dev/null 2>&1 &
+    elif [[ "$f" =~ \.(txt|md|sh|py|js|ts|cpp|c|h|html|css|lua|vim|go)$ ]]; then
+        # Open code and text files in Neovim
+        nvim "$f"  # Removed setsid so it doesn't run in the background
+    elif [[ "$f" =~ \.pdf$ ]]; then
+        # Open the PDF with zathura (or mupdf)
+        zathura "$f" &  # For zathura, or mupdf "$f" for mupdf
     else
+        # Use xdg-open for other file types (PDFs, etc.)
         setsid xdg-open "$f" > /dev/null 2>&1 &
     fi
 }}
+
+# Keybinding to open files with the above logic
 map o open
 

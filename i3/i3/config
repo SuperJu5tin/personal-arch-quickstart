@@ -214,7 +214,7 @@ bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/dmenu-unmount.sh
 
 # power profile manager
 
-bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/dmenu-power.sh
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/dmenu-power.sh
 
 bindsym $mod+c exec google-chrome-stable
 
@@ -232,7 +232,17 @@ exec --no-startup-id blueman-applet
 bindsym Print exec scrot ~/Pictures/screenshot_%Y-%m-%d-%H%M%S.png
 
 # Select area screenshot
-bindsym $mod+Shift+s exec --no-startup-id sh -c 'FILE=~/Pictures/screenshot_$(date +%Y-%m-%d-%H%M%S).png && maim -s -u "$FILE" && xclip -selection clipboard -t image/png -i "$FILE"'
+bindsym $mod+Shift+s exec --no-startup-id ~/.config/i3/scripts/screenshot.sh 
 
 bindsym $mod+x exec --no-startup-id ~/.config/i3/scripts/btop-launcher.sh
+
+# Toggle play/pause audio
+bindsym $mod+p exec --no-startup-id playerctl play-pause
+
+
+# Skip to the next track
+bindsym $mod+n exec --no-startup-id playerctl next
+
+# Rewind the track by 10 seconds
+bindsym $mod+b exec --no-startup-id playerctl previous
 

@@ -1,32 +1,50 @@
 #!/bin/bash
 
-PID_FILE=~/ffmpeg_pid.txt
-MONITOR_SOURCE="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Speaker__sink.monitor"
-SAVE_DIR=~/Videos
-DMENU_FONT="monospace-18"
+DMENU_FONT="JetBrainsMono-18"
+PIDFILE="/tmp/screen_recording.pid"
 
-if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" > /dev/null 2>&1; then
-    notify-send "🎥 Screen Recording" "Stopped"
-    pkill -SIGINT ffmpeg
-    rm "$PID_FILE"
-else
-    # Ask for filename using dmenu with larger font
-    FILENAME=$(echo "" | dmenu -fn "$DMENU_FONT" -p "Recording filename:")
-
-    # Use timestamp if empty
-    if [ -z "$FILENAME" ]; then
-        FILENAME="recording_$(date +%Y%m%d_%H%M%S)"
-    fi
-
-    OUTPUT="$SAVE_DIR/$FILENAME.mp4"
-    notify-send "🎥 Screen Recording" "Started: $FILENAME.mp4"
-
-    ffmpeg \
-        -f x11grab -video_size 2880x1800 -i :0.0 \
-        -f pulse -i "$MONITOR_SOURCE" \
-        -c:v libx264 -preset ultrafast -crf 18 \
-        -c:a aac -strict experimental \
-        "$OUTPUT" &
-    echo $! > "$PID_FILE"
+# If PID file exists and process is running: stop recording
+if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    kill "$(cat "$PIDFILE")"
+    rm "$PIDFILE"
+    notify-send "🎬 Screen recording stopped"
+    exit 0
 fi
+
+# Ask for recording name
+name=$(dmenu -fn "$DMENU_FONT" -p "Recording name:" < /dev/null)
+[ -z "$name" ] && notify-send "Recording cancelled" && exit 1
+
+# Ensure Videos directory exists
+mkdir -p "$HOME/Videos"
+outfile="$HOME/Videos/${name}.mp4"
+
+# Check if file exists
+if [ -e "$outfile" ]; then
+    choice=$(printf "Overwrite\nChoose new name\nCancel" | dmenu -fn "$DMENU_FONT" -p "File exists. What now?" < /dev/null)
+    case "$choice" in
+        "Overwrite")
+            ;;
+        "Choose new name")
+            name=$(dmenu -fn "$DMENU_FONT" -p "New recording name:" < /dev/null)
+            [ -z "$name" ] && notify-send "Recording cancelled" && exit 1
+            outfile="$HOME/Videos/${name}.mp4"
+            ;;
+        *)
+            notify-send "Recording cancelled"
+            exit 1
+            ;;
+    esac
+fi
+
+# Start ffmpeg in background and save PID
+ffmpeg \
+-f x11grab -framerate 30 -i :0.0 \
+-f pulse -i default \
+-c:v libx264 -preset veryfast -crf 23 \
+-c:a aac -b:a 128k \
+"$outfile" > /dev/null 2>&1 &
+
+echo $! > "$PIDFILE"
+notify-send "🔴 Recording started: $name"
 
