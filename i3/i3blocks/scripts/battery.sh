@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Get battery percentage and status
+# Get battery info from acpi (first line used for status, all lines for percentage)
 battery_info=$(acpi -b)
-percentage=$(echo "$battery_info" | awk -F', ' '{print $2}' | tr -d '%')
-status=$(echo "$battery_info" | awk '{print $3}' | tr -d ',')
+
+# Extract and average percentages for multiple batteries
+percentage=$(echo "$battery_info" | awk -F', ' '{gsub("%","",$2); sum+=$2} END {printf "%.0f", sum/NR}')
+
+# Extract charging status from the first battery line
+status=$(echo "$battery_info" | head -n1 | awk '{print $3}' | tr -d ',')
 
 # Icons
 charging_icon="󰂄 "
@@ -40,11 +44,12 @@ elif [[ "$percentage" -lt 20 ]]; then
 elif [[ "$percentage" -lt 50 ]]; then
 	color="#FFFF00"  # yellow
 else
-	color="#00FFAA"  # white
+	color="#00FFAA"  # cyan
 fi
 
-# Output for i3blocks (text, short text, color)
+# Output for i3blocks (full text, short text, color)
 echo "$icon $percentage% $bar"
 echo
 echo "$color"
+echo "#000000"
 
